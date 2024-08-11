@@ -10,7 +10,7 @@ def to_numpy(x: torch.Tensor):
     return x.detach().cpu().numpy()
 
 def add_time(x: torch.Tensor) -> torch.Tensor:
-    """ 
+    r""" 
     Time-augmentation of a path. \hat S_t = (t, S_t). 
     This is for equal spaced time series paths
     """
@@ -21,7 +21,7 @@ def add_time(x: torch.Tensor) -> torch.Tensor:
     return x_hat
 
 def add_power_time(x: torch.Tensor, power=1) -> torch.Tensor:
-    """ 
+    r""" 
     Time-augmentation of a path. \hat S_t = (t, S_t), for when time is non-linear (polynomial)
     """
     # Time will always be between 0 and 1
@@ -33,7 +33,7 @@ def add_power_time(x: torch.Tensor, power=1) -> torch.Tensor:
     return x_hat
 
 def add_exponential_time(x: torch.Tensor, lam=1) -> torch.Tensor:
-    """ 
+    r""" 
     Time-augmentation of a path. \hat S_t = (t, S_t), for exponential time
     """
     # Time will always be between 0 and 1
