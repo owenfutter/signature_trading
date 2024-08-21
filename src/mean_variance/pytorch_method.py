@@ -108,6 +108,9 @@ class PyTorchMethod:
         
             var_sig = var_sig[0][locs][:,locs] # the signature PnL covariance matrix
         
+        
+        # self.var_sig = self.var_sig + torch.eye(self.var_sig.shape[0]).to(self.device) * robust_penalty # adding a small amount of noise to ensure invertibility
+        
         self.var_sig = var_sig.to(self.device)
         self.var_sig = (self.var_sig + self.var_sig.T) / 2 # ensuring symmetricity
         
@@ -164,7 +167,7 @@ class PyTorchMethod:
         position = position.clone()[:,:-1] # remove the last input as it is not traded on
         
         # Get returns of each asset, missing out the first 2 values to avoid lookahead bias
-        rets = torch.diff(asset_paths,dim=1)[:,2:]
+        rets = torch.diff(self.path_test.asset_paths,dim=1)[:,2:]
         
         # PnL of all paths
         pnl = (position*rets).cumsum(-2).sum(-1)
